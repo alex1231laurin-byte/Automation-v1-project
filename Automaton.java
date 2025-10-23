@@ -52,12 +52,9 @@ public class Automaton
         // based on the state of its two neighbors.
         for(int i = 0; i < state.length; i++) {
             int left, center, right;
-            if(i == 0) {
-                left = 0;
-            }
-            else {
-                left = state[i - 1];
-            }
+            int value =0;
+            value = (i == 1 ? state[i-1] : 0);
+            left = value;
             center = state[i];
             if(i + 1 < state.length) {
                 right = state[i + 1];
