@@ -53,18 +53,10 @@ public class Automaton
         nextState = new ArrayList(numberOfCells);
         // Naively update the state of each cell
         // based on the state of its two neighbors.
-        int left = 0;
-        int center = state[0];
         for(int i = 0; i < numberOfCells; i++) {
             nextState.add(i,null);
-            int right = 0;
-            if(i+1 < numberOfCells){
-                right = state[i + 1];
-            }
-            Integer stateGiver = new Integer((left + center + right) % 2);
+            Integer stateGiver = calculateNextState(i);
             nextState.add(i,stateGiver);
-            left = center;
-            center = right;
         }
         state = new int[numberOfCells];
         for(int i = 0; i < numberOfCells; i++) {
@@ -75,6 +67,13 @@ public class Automaton
                 state[i] = stateGiver2;
             }
         }
+    }
+    public Integer calculateNextState(int i){
+        int left = i-1 > 0 ? state[i-1] : 0;
+        int center = state[i];
+        int right = i + 1 < state.length ? state[i+1] : 0;
+        Integer stateGiver = (left + center + right) % 2;
+        return stateGiver;
     }
     
     /**
