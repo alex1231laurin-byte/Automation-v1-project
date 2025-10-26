@@ -1,4 +1,6 @@
 import java.util.Arrays;
+import java.util.ArrayList;
+import java.lang.Integer;
 
 /**
  * Model a 1D elementary cellular automaton.
@@ -12,6 +14,7 @@ public class Automaton
     private final int numberOfCells;
     // The state of the cells.
     private int[] state;
+    private ArrayList<Integer> nextState;
     
     /**
      * Create a 1D automaton consisting of the given number of cells.
@@ -47,18 +50,31 @@ public class Automaton
     public void update()
     {
         // Build the new state in a separate array.
-        int[] nextState = new int[state.length];
+        nextState = new ArrayList(numberOfCells);
         // Naively update the state of each cell
         // based on the state of its two neighbors.
         int left = 0;
         int center = state[0];
-        for(int i = 0; i < state.length; i++) {
-            int right = i + 1 < state.length ? state[i + 1] : 0;
-            nextState[i] = (left + center + right) % 2;
+        for(int i = 0; i < numberOfCells; i++) {
+            nextState.add(i,null);
+            int right = 0;
+            if(i+1 < numberOfCells){
+                right = state[i + 1];
+            }
+            Integer stateGiver = new Integer((left + center + right) % 2);
+            nextState.add(i,stateGiver);
             left = center;
             center = right;
         }
-        state = nextState;
+        state = new int[numberOfCells];
+        for(int i = 0; i < numberOfCells; i++) {
+            state[i] = 0;
+            if(nextState.get(i)!=null){
+                Integer stateGiver = nextState.get(i);
+                int stateGiver2 = stateGiver.intValue();
+                state[i] = stateGiver2;
+            }
+        }
     }
     
     /**
