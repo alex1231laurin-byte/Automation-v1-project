@@ -16,3 +16,4 @@ pattern appears at the start, but a similar pattern emerges each time when step 
 31: It breaks the state array because it creates a new initial position every step.
 32: Yes, I did find a way to avoid the problem in the previous section, however I think it is easier
 to use a complete array because it is simpler to make.
+35: I believe there is an almost infinite number of rules you can make with three binary values.
