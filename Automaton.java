@@ -23,7 +23,7 @@ public class Automaton
     public Automaton(int numberOfCells)
     {
         this.numberOfCells = numberOfCells;
-        state = new int[numberOfCells];
+        state = new int[numberOfCells+1];
         // Seed the automaton with a single 'on' cell in the middle.
         state[numberOfCells / 2] = 1;
     }
@@ -58,7 +58,7 @@ public class Automaton
             Integer stateGiver = calculateNextState(i);
             nextState.add(i,stateGiver);
         }
-        state = new int[numberOfCells];
+        state = new int[numberOfCells + 1];
         for(int i = 0; i < numberOfCells; i++) {
             state[i] = 0;
             if(nextState.get(i)!=null){
@@ -69,9 +69,9 @@ public class Automaton
         }
     }
     public Integer calculateNextState(int i){
-        int left = i-1 > 0 ? state[i-1] : 0;
+        int left = i - 1 > 0 ? state[i-1] : 0;
         int center = state[i];
-        int right = i + 1 < state.length ? state[i+1] : 0;
+        int right = state[i+1];
         Integer stateGiver = (left + center + right) % 2;
         return stateGiver;
     }
